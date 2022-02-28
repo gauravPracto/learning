@@ -1,14 +1,28 @@
 import React from 'react'
-const Button = (props) => {
-    console.log("ren")
-    const {start,setStart} = props
+class Button extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        if(nextProps.start!==this.props.start){
+            return true
+        }
+        else
+        {
+            return false
+        }   
+    }
+    render(){
+        console.log("ren",this.props)
+    const {start,setStart,setPulse} = this.props
     const onStartClick = ()=>{
         if(!start){
-            props.counter()
+            this.props.counter()
             setStart(1)
         }
         else{
-            props.counter(0)
+            this.props.counter(0)
+            setPulse(0)
             setStart(0)
         }
         console.log(start)
@@ -16,6 +30,7 @@ const Button = (props) => {
   return (
     <button id="button" onClick={()=>{onStartClick()}}>{start===0?"start":"reset"}</button>
   )
+    }
 }
 
 export default Button
